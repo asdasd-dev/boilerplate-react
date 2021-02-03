@@ -1,3 +1,4 @@
+const ESLintWebpackPlugin = require("eslint-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
@@ -16,6 +17,9 @@ module.exports = (env) => {
         const plugins = [
             new HtmlWebpackPlugin({
                 template: "public/index.html",
+            }),
+            new ESLintWebpackPlugin({
+                extensions: ["js", "jsx", "ts", "tsx"],
             }),
         ];
 
@@ -91,6 +95,9 @@ module.exports = (env) => {
 
         devServer: {
             open: true,
+            historyApiFallback: true,
         },
+
+        devtool: isProd ? "hidden-source-map" : "eval",
     };
 };
