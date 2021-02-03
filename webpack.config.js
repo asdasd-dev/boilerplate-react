@@ -34,17 +34,24 @@ module.exports = (env) => {
     };
 
     return {
+        mode: isProd ? "production" : isDev ? "development" : "none",
+
+        entry: "./src/index.tsx",
+
         output: {
+            publicPath: "/",
             filename: isProd ? "main-[hash:8].js" : undefined,
         },
 
-        mode: isProd ? "production" : isDev ? "development" : "none",
+        resolve: {
+            extensions: [".ts", ".tsx", ".js", ".jsx"],
+        },
 
         module: {
             rules: [
                 //Loading js
                 {
-                    test: /\.js$/,
+                    test: /\.(js|ts)x?$/,
                     exclude: /node_modules/,
                     loader: "babel-loader",
                 },
@@ -96,6 +103,7 @@ module.exports = (env) => {
         devServer: {
             open: true,
             historyApiFallback: true,
+            port: 3000,
         },
 
         devtool: isProd ? "hidden-source-map" : "eval",
